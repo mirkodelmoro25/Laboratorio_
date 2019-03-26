@@ -84,7 +84,50 @@ void FileIni::printAllParameters(string section) {
         std::cout<< it.first << std::endl;
 }
 
+void FileIni::printValue(string section, string parameter){
+    cout<< parameter << " = " << file[section][parameter]<<endl;
+}
 
+void FileIni::printAllFile() {
+    for (auto &it : file) {
+        if (it.first == "Comments")
+            for (auto &it2 : file["Comments"]) {
+                cout << it2.second << endl;
+            }
+        else {
+            cout << "Section: " << it.first << endl;
+            for (auto &it2 : file[it.first]) {
+                int count = 0;
+                bool commentFound = false;
+                while (count < nMaxComment && !commentFound) {
+                    if (it2.first == to_string(count)) {
+                        commentFound = true;
+                        cout << it2.second << endl;
+                    } else count++;
+                }
+                if (!commentFound)
+                    cout << it2.first << " = " << it2.second << endl;
+            }
 
+        }
+    }
+}
 
+void FileIni::addComents(string section, string commentText, bool isInSection) {
+    string parameter;
+    nComment += 1;
+    parameter = to_string(nComment);
+    if (isInSection)
+        file[section][parameter] = ";" + commentText;
+    else file["Comments"][parameter] = ";" + commentText;
+}
+
+void FileIni::reset() {
+    cout << "Do you want to delete everything? Yes or No" << endl;
+    string answer;
+    cin >> answer;
+    if (answer == "Yes")
+        file.clear();
+    else cout << "Good choice" << endl;
+}
 

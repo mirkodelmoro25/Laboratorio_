@@ -46,6 +46,14 @@ public:
 
     void printValue (string section, string parameter);
 
+    void printAllFile ();
+
+    void addComents (string section, string commentText, bool isInSection);
+
+    void reset();
+
+
+
 
 
 private:
