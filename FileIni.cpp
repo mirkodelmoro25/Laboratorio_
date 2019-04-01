@@ -131,3 +131,18 @@ void FileIni::reset() {
     else cout << "Good choice" << endl;
 }
 
+int FileIni::numbersOfParameters(string section) {
+    int count = 0;
+    for (auto &it : file[section])
+        count ++;
+    return count;
+}
+
+void FileIni::end() {
+    this->newProject.close();
+}
+
+void FileIni::checkIsOpen() {
+    if (!newProject.is_open())
+        cout << "File doesn't exist" << endl ;
+}

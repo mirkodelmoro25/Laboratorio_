@@ -52,6 +52,12 @@ public:
 
     void reset();
 
+    int numbersOfParameters(string section);
+
+    void end();
+
+    void checkIsOpen();
+
 
 
 
