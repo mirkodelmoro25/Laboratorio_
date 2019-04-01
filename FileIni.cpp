@@ -146,3 +146,19 @@ void FileIni::checkIsOpen() {
     if (!newProject.is_open())
         cout << "File doesn't exist" << endl ;
 }
+
+bool FileIni::findSection(string section) {
+    bool found = false;
+    auto it = file.find(section);
+    if (it != file.end())
+        found = true;
+    return found;
+}
+
+bool FileIni::findParameter(string section, string parameter) {
+    bool found = false;
+    auto it = file[section].find(parameter);
+    if (it != file[section].end())
+        found = true;
+    return found;
+}

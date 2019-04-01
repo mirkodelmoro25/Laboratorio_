@@ -58,6 +58,10 @@ public:
 
     void checkIsOpen();
 
+    bool findSection(string section);
+
+    bool findParameter(string section, string parameter);
+
 
 
 
