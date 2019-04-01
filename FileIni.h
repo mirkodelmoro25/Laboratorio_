@@ -62,6 +62,8 @@ public:
 
     bool findParameter(string section, string parameter);
 
+    void modify(string section, string parameter, string newValue);
+
 
 
 

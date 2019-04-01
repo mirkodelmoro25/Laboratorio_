@@ -162,3 +162,11 @@ bool FileIni::findParameter(string section, string parameter) {
         found = true;
     return found;
 }
+
+void FileIni::modify(string section, string parameter, string newValue) {
+    cout << "Il parametro" << parameter << "ha già un valore, se vuoi sostituire digita s" << endl;
+    string subValue;
+    cin >> subValue;
+    if (subValue == "s")
+        file[section][parameter]= newValue;
+}
