@@ -13,7 +13,7 @@ FileIni::FileIni(string name, int nMax) {
 }
 
 FileIni::~FileIni() {
-    newProject.close();
+    this->newProject.close();
 }
 
 void FileIni::setFileName(string name) {
