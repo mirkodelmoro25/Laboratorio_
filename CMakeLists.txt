@@ -3,4 +3,10 @@ project(Laboratorio_)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Laboratorio_ main.cpp FileIni.cpp FileIni.h)
+
+add_subdirectory(test)
+
+set(SOURCE_FILES FileIni.cpp FileIni.h)
+add_executable(Laboratorio_ main.cpp)
+add_library(core ${SOURCE_FILES})
+target_link_libraries(Laboratorio_ core)
