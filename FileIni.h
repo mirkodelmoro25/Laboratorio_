@@ -24,13 +24,13 @@ public:
 
     string getValue (string section, string parameter);
 
-    string setIntValue (string section, string parameter, int newValue);
+    void setIntValue (string section, string parameter, int newValue);
 
-    string setStringValue (string section, string parameter, string newValue);
+    void setStringValue (string section, string parameter, string newValue);
 
-    string setBoolValue (string section, string parameter, bool newValue);
+    void setBoolValue (string section, string parameter, bool newValue);
 
-    string setFloatValue (string section, string parameter, float newValue);
+    void setFloatValue (string section, string parameter, float newValue);
 
     void addSection(string newSectionName);
 
@@ -48,7 +48,7 @@ public:
 
     void printAllFile ();
 
-    void addComents (string section, string commentText, bool isInSection);
+    void addComments (string section, string commentText, bool isInSection);
 
     void reset();
 
@@ -56,7 +56,7 @@ public:
 
     void end();
 
-    void checkIsOpen();
+    void checkIsOpen() throw (std::runtime_error);
 
     bool findSection(string section);
 

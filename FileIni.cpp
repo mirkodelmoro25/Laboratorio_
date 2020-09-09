@@ -28,24 +28,28 @@ string FileIni::getValue(string section, string parameter){
     return file[section][parameter];
 }
 
-string FileIni::setIntValue (string section, string parameter, int newValue){
+void FileIni::setIntValue (string section, string parameter, int newValue){
     string rightValue = to_string(newValue);
     setStringValue(section, parameter, rightValue);
-};
+}
 
-string FileIni::setBoolValue(string section, string parameter, bool newValue) {
+void FileIni::setBoolValue(string section, string parameter, bool newValue) {
     if (newValue)
-        file[section][parameter]= "isTrue";
-    else file[section][parameter]= "isFalse";
+        file[section][parameter]= "true";
+    else file[section][parameter]= "false";
 }
 
-string FileIni::setFloatValue(string section, string parameter, float newValue) {
+void FileIni::setFloatValue(string section, string parameter, float newValue) {
     string rightValue = to_string(newValue);
     setStringValue(section, parameter, rightValue);
 }
 
-string FileIni::setStringValue(string section, string parameter, string newValue) {
-    file[section][parameter]=newValue;
+void FileIni::setStringValue(string section, string parameter, string newValue) {
+    auto it = file[section].find(parameter);
+    if (it==file[section].end())
+        file[section][parameter]=newValue;
+    else
+        modify(section,parameter,newValue);
 }
 
 void FileIni::addSection(string newSectionName) {
@@ -55,18 +59,18 @@ void FileIni::addSection(string newSectionName) {
 void FileIni::removeSection(string section) {
     auto it = file.find(section);
     if (it == file.end())
-        std::cout<< "Error, this section doesn't exist";
+        throw std::runtime_error( "Error, this section doesn't exist");
     else file.erase(section);
 }
 
 void FileIni::addParameter(string section, string newParameterName) {
-    file[section][newParameterName];
+    file[section][newParameterName] = "null";
 }
 
 void FileIni::removeParameter(string section, string parameter) {
     auto it = file[section].find(parameter);
     if (it == file[section].end())
-        std::cout<< " Error, this parameter doesn't exist";
+        throw std::runtime_error(" Error, this parameter doesn't exist");
     else file[section].erase(parameter);
 }
 
@@ -113,7 +117,7 @@ void FileIni::printAllFile() {
     }
 }
 
-void FileIni::addComents(string section, string commentText, bool isInSection) {
+void FileIni::addComments(string section, string commentText, bool isInSection) {
     string parameter;
     nComment += 1;
     parameter = to_string(nComment);
@@ -142,9 +146,9 @@ void FileIni::end() {
     this->newProject.close();
 }
 
-void FileIni::checkIsOpen() {
+void FileIni::checkIsOpen() throw (std::runtime_error){
     if (!newProject.is_open())
-        cout << "File doesn't exist" << endl ;
+        throw std::runtime_error( "File doesn't exist" ) ;
 }
 
 bool FileIni::findSection(string section) {
@@ -164,7 +168,7 @@ bool FileIni::findParameter(string section, string parameter) {
 }
 
 void FileIni::modify(string section, string parameter, string newValue) {
-    cout << "Il parametro" << parameter << "ha già un valore, se vuoi sostituire digita s" << endl;
+    cout << "Il parametro " << parameter << " ha già un valore, se vuoi sostituire digita s" << endl;
     string subValue;
     cin >> subValue;
     if (subValue == "s")

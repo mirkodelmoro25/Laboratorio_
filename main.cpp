@@ -17,7 +17,7 @@ int main() {
 
     file.addSection("Sez. D");
     file.addParameter("Sez. B", "Param. 6");
-    file.addComents("comm. 1", " comm. 2", false);
+    file.addComments("comm. 1", " comm. 2", false);
 
     file.printAllParameters("Sez. 2");
     file.printAllSections();
