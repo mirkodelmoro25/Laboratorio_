@@ -25,7 +25,7 @@ int main() {
     file.printAllFile();
 
     int numOfParameters = file.numbersOfParameters("Sez. 1");
-    cout << "First Section has " << numOfParameters << "parameters" << endl;
+    cout << "First Section has " << numOfParameters << " parameters" << endl;
 
 
     file.end();
