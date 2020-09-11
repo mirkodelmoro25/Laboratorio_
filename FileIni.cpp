@@ -28,28 +28,28 @@ string FileIni::getValue(string section, string parameter){
     return file[section][parameter];
 }
 
-void FileIni::setIntValue (string section, string parameter, int newValue){
+void FileIni::setValue (string section, string parameter, int newValue){
     string rightValue = to_string(newValue);
-    setStringValue(section, parameter, rightValue);
+    setValueS(section, parameter, rightValue);
 }
 
-void FileIni::setBoolValue(string section, string parameter, bool newValue) {
+void FileIni::setValue(string section, string parameter, bool newValue) {
     if (newValue)
         file[section][parameter]= "true";
     else file[section][parameter]= "false";
 }
 
-void FileIni::setFloatValue(string section, string parameter, float newValue) {
+void FileIni::setValue(string section, string parameter, double newValue) {
     string rightValue = to_string(newValue);
-    setStringValue(section, parameter, rightValue);
+    setValueS(section, parameter, rightValue);
 }
 
-void FileIni::setStringValue(string section, string parameter, string newValue) {
-    auto it = file[section].find(parameter);
-    if (it==file[section].end())
-        file[section][parameter]=newValue;
-    else
-        modify(section,parameter,newValue);
+void FileIni::setValueS(string section, string parameter, string newValue) {
+   auto it = file[section].find(parameter);
+   if (it==file[section].end())
+     file[section][parameter]=newValue;
+   else
+     modify(section,parameter,newValue);
 }
 
 void FileIni::addSection(string newSectionName) {
@@ -74,48 +74,6 @@ void FileIni::removeParameter(string section, string parameter) {
     else file[section].erase(parameter);
 }
 
-void FileIni::printAllSections() {
-    cout<<"Sections: ";
-    for (auto &it:file){
-        std::cout << it.first << std::endl ;
-    }
-}
-
-void FileIni::printAllParameters(string section) {
-    std::cout<<"Section"<< section <<": "<<std::endl;
-    std::cout<< "Parameters" <<std::endl;
-    for (auto& it:file[section])
-        std::cout<< it.first << std::endl;
-}
-
-void FileIni::printValue(string section, string parameter){
-    cout<< parameter << " = " << file[section][parameter]<<endl;
-}
-
-void FileIni::printAllFile() {
-    for (auto &it : file) {
-        if (it.first == "Comments")
-            for (auto &it2 : file["Comments"]) {
-                cout << it2.second << endl;
-            }
-        else {
-            cout << "Section: " << it.first << endl;
-            for (auto &it2 : file[it.first]) {
-                int count = 0;
-                bool commentFound = false;
-                while (count < nMaxComment && !commentFound) {
-                    if (it2.first == to_string(count)) {
-                        commentFound = true;
-                        cout << it2.second << endl;
-                    } else count++;
-                }
-                if (!commentFound)
-                    cout << it2.first << " = " << it2.second << endl;
-            }
-
-        }
-    }
-}
 
 void FileIni::addComments(string section, string commentText, bool isInSection) {
     string parameter;
@@ -173,4 +131,12 @@ void FileIni::modify(string section, string parameter, string newValue) {
     cin >> subValue;
     if (subValue == "s")
         file[section][parameter]= newValue;
+}
+
+map<string, map<string, string>> FileIni::getFile () {
+    return file;
+};
+
+int FileIni::getNComment() {
+    return nMaxComment;
 }

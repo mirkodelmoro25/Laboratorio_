@@ -1,5 +1,6 @@
 #include <iostream>
 #include "FileIni.h"
+#include "Print.h"
 
 using namespace std;
 
@@ -8,24 +9,32 @@ int main() {
     FileIni file("FirstProgram.ini");
     cout << "File Name: "<< file.getFileName() << endl;
 
-    file.setBoolValue("Sez. A", "Param. 1", true);
-    file.setFloatValue("Sez. A", "Param. 1", 10.34);
-    file.setIntValue("Sez. A", "Param. 1", 4);
-    file.setStringValue("Sez. A", "Param. 1", "Val. A1");
+    Print p (&file);
 
-    file.checkIsOpen();
 
-    file.addSection("Sez. D");
-    file.addParameter("Sez. B", "Param. 6");
-    file.addComments("comm. 1", " comm. 2", false);
+    file.setValue("Sezione A", "Param. 1", true);
+    file.setValue ("Sezione A", "Param. 1", 10.34) ;
+    file.setValue("Sezione A", "Param. 1", 4);
+    file.setValueS("Sezione A", "Param. 1", "Valore 1");
+    file.setValue("Sezione A", "Param. 4", 5);
 
-    file.printAllParameters("Sez. 2");
-    file.printAllSections();
 
-    file.printAllFile();
+    file.addSection("Sezione D");
+    file.addSection("Sezione E");
+    p.printAllSections();
+    file.addParameter("Sezione B", "Parametro 6");
+    file.addComments("Sezione B", " commento 1", false);
 
-    int numOfParameters = file.numbersOfParameters("Sez. 1");
-    cout << "First Section has " << numOfParameters << " parameters" << endl;
+    //p.printAllParameters("Sezione B");
+    cout <<"\n" << endl;
+    p.printValue("Sezione A", "Param. 4");
+
+    int numOfParameters = file.numbersOfParameters("Sezione A");
+    cout << "\nFirst Section has " << numOfParameters << " parameters \n" << endl;
+
+    p.printAllParameters("Sezione B");
+    cout <<"\nAll file: "<< endl;
+    p.printAllFile();
 
 
     file.end();

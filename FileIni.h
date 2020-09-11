@@ -24,13 +24,13 @@ public:
 
     string getValue (string section, string parameter);
 
-    void setIntValue (string section, string parameter, int newValue);
+    void setValue (string section, string parameter, int newValue);
 
-    void setStringValue (string section, string parameter, string newValue);
+    void setValueS (string section, string parameter, string newValue);
 
-    void setBoolValue (string section, string parameter, bool newValue);
+    void setValue (string section, string parameter, bool newValue);
 
-    void setFloatValue (string section, string parameter, float newValue);
+    void setValue (string section, string parameter, double newValue);
 
     void addSection(string newSectionName);
 
@@ -39,14 +39,6 @@ public:
     void addParameter (string section, string newParameterName);
 
     void removeParameter (string section, string parameter);
-
-    void printAllSections ();
-
-    void printAllParameters (string section);
-
-    void printValue (string section, string parameter);
-
-    void printAllFile ();
 
     void addComments (string section, string commentText, bool isInSection);
 
@@ -63,6 +55,11 @@ public:
     bool findParameter(string section, string parameter);
 
     void modify(string section, string parameter, string newValue);
+
+    map<string, map<string, string>> getFile ();
+
+    int getNComment();
+
 
 
 
