@@ -67,3 +67,15 @@ FileIni file("Prova.ini");
 file.end();
 EXPECT_THROW(file.checkIsOpen(), std::runtime_error);
 }
+
+
+TEST(iniFileManagerException, ReadTest) {
+    FileIni file("Prova.ini");
+    file.read("../FileIni.cpp");
+    EXPECT_THROW(file.checkIsOpen(), std::runtime_error);
+}
+TEST(iniFileManagerException, WriteTest) {
+    FileIni file("Prova.ini");
+    file.write("../Prova");
+    EXPECT_THROW(file.checkIsOpen(), std::runtime_error);
+}
