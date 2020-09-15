@@ -40,15 +40,17 @@ public:
 
     void removeParameter (string section, string parameter);
 
-    void addComments (string section, string commentText, bool isInSection);
+    void addComments (string section, string commentText);
 
-    void reset();
+    void read(string filePath);
+
+    void write(string filePath);
 
     int numbersOfParameters(string section);
 
     void end();
 
-    void checkIsOpen() throw (std::runtime_error);
+    void checkIsOpen() ;
 
     bool findSection(string section);
 
@@ -70,9 +72,12 @@ private:
     map<string, map<string, string>> file;
     int nComment;
     int nMaxComment;
-    fstream newProject;
+    fstream fileS;
+    string file_text;
+
 
 };
 
 
 #endif //LABORATORIO_FILEINI_H
+
