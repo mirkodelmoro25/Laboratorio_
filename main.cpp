@@ -23,7 +23,7 @@ int main() {
     file.addSection("Sezione E");
     p.printAllSections();
     file.addParameter("Sezione B", "Parametro 6");
-    file.addComments("Sezione B", " commento 1", false);
+    file.addComments("Sezione B", " commento 1");
 
     //p.printAllParameters("Sezione B");
     cout <<"\n" << endl;
@@ -35,7 +35,8 @@ int main() {
     p.printAllParameters("Sezione B");
     cout <<"\nAll file: "<< endl;
     p.printAllFile();
-
+    file.read("../FileIni.cpp");
+    file.write("../prova");
 
     file.end();
 
