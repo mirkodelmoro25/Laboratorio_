@@ -1,19 +1,21 @@
-//
+/
 // Created by mirko25 on 13/03/19.
 //
 
 #include "FileIni.h"
+#include <fstream>
+#include "string"
 
 
 FileIni::FileIni(string name, int nMax) {
    fileName = name;
    nMaxComment = nMax;
    nComment = 0;
-   newProject.open(name);
+   fileS.open(name);
 }
 
 FileIni::~FileIni() {
-    this->newProject.close();
+    this->fileS.close();
 }
 
 void FileIni::setFileName(string name) {
@@ -75,23 +77,43 @@ void FileIni::removeParameter(string section, string parameter) {
 }
 
 
-void FileIni::addComments(string section, string commentText, bool isInSection) {
+void FileIni::addComments(string section, string commentText) {
     string parameter;
     nComment += 1;
     parameter = to_string(nComment);
-    if (isInSection)
-        file[section][parameter] = ";" + commentText;
-    else file["Comments"][parameter] = ";" + commentText;
+    file[section][parameter] = ";" + commentText;
 }
 
-void FileIni::reset() {
-    cout << "Do you want to delete everything? Yes or No" << endl;
-    string answer;
-    cin >> answer;
-    if (answer == "Yes")
-        file.clear();
-    else cout << "Good choice" << endl;
+
+void FileIni::read(string filePath) {
+    ifstream f (filePath);
+    string line;
+    file_text.clear();
+    if (f.is_open()) {
+        while (getline(f, line)) {
+            cout << line << "\n" << endl;
+            file_text += line + "\n";
+        }
+
+        f.close();
+    }
+    else {
+        throw std::runtime_error( "Unable to open file" );
+    }
 }
+
+void FileIni::write(string filePath ){
+    ofstream f (filePath);
+        if (f.is_open()) {
+
+        f << file_text << endl;
+        f.close();
+    }
+    else {
+        throw std::runtime_error( "Unable to open file" );
+    }
+}
+
 
 int FileIni::numbersOfParameters(string section) {
     int count = 0;
@@ -101,11 +123,11 @@ int FileIni::numbersOfParameters(string section) {
 }
 
 void FileIni::end() {
-    this->newProject.close();
+    fileS.close();
 }
 
-void FileIni::checkIsOpen() throw (std::runtime_error){
-    if (!newProject.is_open())
+void FileIni::checkIsOpen() {
+    if (!fileS.is_open())
         throw std::runtime_error( "File doesn't exist" ) ;
 }
 
